@@ -129,15 +129,15 @@ export function Layout() {
         <Outlet />
       </main>
 
-      {/* Mobile tab bar */}
-      <nav aria-label="Quick" className="lg:hidden fixed bottom-0 inset-x-0 z-30 grid grid-cols-5 border-t border-line/60 bg-bg/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+      {/* Mobile tab bar (hidden mid-workout so it can't be tapped by accident) */}
+      {!pathname.startsWith('/session') && <nav aria-label="Quick" className="lg:hidden fixed bottom-0 inset-x-0 z-30 grid grid-cols-5 border-t border-line/60 bg-bg/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
         {TABS.map(({ to, label, icon: Icon }) => (
           <NavLink key={to} to={to} end={to === '/'} className={({ isActive }) => cx('flex flex-col items-center gap-1 py-2 text-[0.65rem]', isActive ? 'text-accent' : 'text-faint')}>
             <Icon className="size-5" />
             <span className="truncate max-w-full px-1">{label.replace('Exercise ', '').replace('Workout ', '').replace('My ', '').replace('Fitness ', '')}</span>
           </NavLink>
         ))}
-      </nav>
+      </nav>}
     </div>
   )
 }

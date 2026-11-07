@@ -130,17 +130,17 @@ export default function Coach() {
         <Card className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="border-b border-line/60 text-left text-xs text-faint">
-              <th className="p-3 font-medium">Muscle</th><th className="p-3 font-medium">Sets (7 d)</th><th className="p-3 font-medium">Avg / week (4 wk)</th><th className="p-3 font-medium">Frequency</th><th className="p-3 font-medium">Volume</th><th className="p-3 font-medium">Progress</th>
+              <th className="px-2 py-3 sm:p-3 font-medium">Muscle</th><th className="px-2 py-3 sm:p-3 font-medium">Sets<span className="max-sm:hidden"> (7 d)</span></th><th className="px-2 py-3 sm:p-3 font-medium max-sm:hidden">Avg / week (4 wk)</th><th className="px-2 py-3 sm:p-3 font-medium max-sm:hidden">Frequency</th><th className="px-2 py-3 sm:p-3 font-medium">Volume</th><th className="px-2 py-3 sm:p-3 font-medium">Progress</th>
             </tr></thead>
             <tbody>
               {analysis.map((m) => (
                 <tr key={m.slug} className="border-b border-line/40 last:border-0">
-                  <td className="p-3 font-medium">{m.name}</td>
-                  <td className="p-3 num">{m.weekSets}</td>
-                  <td className="p-3 num text-muted">{m.avgSets}</td>
-                  <td className="p-3 num text-muted">{m.frequency}× / wk</td>
-                  <td className="p-3"><Badge tone={m.volume === 'optimal' ? 'ok' : m.volume === 'under' ? 'warn' : 'bad'}>{m.volume === 'under' ? 'Undertrained' : m.volume === 'excess' ? 'Excessive' : 'On target'}</Badge></td>
-                  <td className="p-3"><Badge tone={m.trend === 'progressing' ? 'ok' : m.trend === 'stagnant' ? 'warn' : 'neutral'}>{m.trend}</Badge></td>
+                  <td className="px-2 py-3 sm:p-3 font-medium">{m.name}</td>
+                  <td className="px-2 py-3 sm:p-3 num">{m.weekSets}</td>
+                  <td className="px-2 py-3 sm:p-3 num text-muted max-sm:hidden">{m.avgSets}</td>
+                  <td className="px-2 py-3 sm:p-3 num text-muted max-sm:hidden">{m.frequency}× / wk</td>
+                  <td className="px-2 py-3 sm:p-3"><Badge tone={m.volume === 'optimal' ? 'ok' : m.volume === 'under' ? 'warn' : 'bad'}>{m.volume === 'under' ? <>Under<span className="max-sm:hidden">trained</span></> : m.volume === 'excess' ? <>Excess<span className="max-sm:hidden">ive</span></> : 'On target'}</Badge></td>
+                  <td className="px-2 py-3 sm:p-3"><Badge tone={m.trend === 'progressing' ? 'ok' : m.trend === 'stagnant' ? 'warn' : 'neutral'}>{m.trend}</Badge></td>
                 </tr>
               ))}
             </tbody>
@@ -154,16 +154,16 @@ export default function Coach() {
         <Card className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead><tr className="border-b border-line/60 text-left text-xs text-faint">
-              <th className="p-3 font-medium">Exercise</th><th className="p-3 font-medium">Heaviest set</th><th className="p-3 font-medium">Change</th><th className="p-3 font-medium">Estimated 1RM</th><th className="p-3 font-medium">Tested 1RM</th>
+              <th className="px-2 py-3 sm:p-3 font-medium">Exercise</th><th className="px-2 py-3 sm:p-3 font-medium">Heaviest set</th><th className="px-2 py-3 sm:p-3 font-medium max-sm:hidden">Change</th><th className="px-2 py-3 sm:p-3 font-medium">Est. 1RM</th><th className="px-2 py-3 sm:p-3 font-medium">Tested<span className="max-sm:hidden"> 1RM</span></th>
             </tr></thead>
             <tbody>
               {strength.map((s) => (
                 <tr key={s.id} className="border-b border-line/40 last:border-0">
-                  <td className="p-3 font-medium">{s.name}</td>
-                  <td className="p-3 num">{s.top ? fmtKg(s.top) : '—'}</td>
-                  <td className={cx('p-3 num', s.top > s.first ? 'text-ok' : 'text-faint')}>{s.sessions > 1 && s.first ? `${s.top - s.first >= 0 ? '+' : ''}${s.top - s.first} kg` : '—'}</td>
-                  <td className="p-3 num text-muted">{s.best ? <>{fmtKg(Math.round(s.best * 10) / 10)} <span className="text-xs text-faint">est.</span></> : '—'}</td>
-                  <td className="p-3 num">{s.tested ? (
+                  <td className="px-2 py-3 sm:p-3 font-medium">{s.name}</td>
+                  <td className="px-2 py-3 sm:p-3 num">{s.top ? fmtKg(s.top) : '—'}</td>
+                  <td className={cx('px-2 py-3 sm:p-3 num max-sm:hidden', s.top > s.first ? 'text-ok' : 'text-faint')}>{s.sessions > 1 && s.first ? `${s.top - s.first >= 0 ? '+' : ''}${s.top - s.first} kg` : '—'}</td>
+                  <td className="px-2 py-3 sm:p-3 num text-muted">{s.best ? <>{fmtKg(Math.round(s.best * 10) / 10)} <span className="text-xs text-faint">est.</span></> : '—'}</td>
+                  <td className="px-2 py-3 sm:p-3 num">{s.tested ? (
                     <span className="inline-flex items-center gap-2">{fmtKg(s.tested.value)} <span className="text-xs text-faint">{fmtDate(s.tested.achieved_on)}</span>
                       <button onClick={() => deleteRecord(s.tested!.id).then(reload)} className="text-faint hover:text-bad" aria-label="Delete tested max"><Trash2 className="size-3.5" /></button></span>
                   ) : '—'}</td>

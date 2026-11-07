@@ -48,7 +48,7 @@ export function PageHeader({ eyebrow, title, actions, children }: { eyebrow?: st
 
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
-    <div className="mb-3 flex items-center justify-between gap-3">
+    <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 [&>select]:max-w-full">
       <h2 className="text-[0.95rem] font-semibold text-fg [font-stretch:90%] uppercase tracking-wide">{children}</h2>
       {action}
     </div>

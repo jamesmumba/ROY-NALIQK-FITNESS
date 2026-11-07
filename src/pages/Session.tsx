@@ -191,8 +191,9 @@ function Runner({ lib, session, initialLogs, history, onFinished }: { lib: Libra
 
       {ex ? (
         <div key={pos} className="animate-rise mt-4 grid gap-5 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <div>
-            <ExerciseImage exercise={ex} animate className="aspect-[4/3] w-full rounded-2xl" />
+          {/* on phones the set log comes first; the demo image follows it */}
+          <div className="max-lg:order-2">
+            <ExerciseImage exercise={ex} animate className="aspect-[4/3] w-full rounded-2xl max-lg:aspect-video" />
             <details className="mt-3 rounded-xl border border-line/60 bg-surface p-4 text-sm">
               <summary className="cursor-pointer font-medium">How to perform it</summary>
               <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-muted">{ex.instructions.map((s) => <li key={s}>{s}</li>)}</ol>
